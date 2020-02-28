@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>
+            <th *ngFor="let thead of tables.COLUMN" >{{thead}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let trow of tables.DATA">
+            <td *ngFor="let tdata of trow">{{tdata}}</td>
+        </tr>
+    </tbody>
+
+
+</table>

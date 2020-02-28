@@ -1,0 +1,8 @@
+<div class="alert alert-danger" role="alert" *ngIf="(errorList.length > 0)">
+	<ul>
+	  <li *ngFor="let error of errorList">
+	  	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+	    {{ error }}
+	  </li>
+	</ul>
+</div>

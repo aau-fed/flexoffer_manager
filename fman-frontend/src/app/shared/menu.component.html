@@ -1,0 +1,10 @@
+<ul class="sidebar-menu tree" data-widget="tree">
+        <li *ngFor="let menu of menus">
+            <a href="{{menu.URL}}">{{menu.TITLE}}</a>
+            <ul>
+                <li *ngFor="let submenu of menu.CHILDREN">
+                    <a href="{{submenu.URL}}">{{submenu.TITLE}}</a>
+                </li>
+            </ul>
+        </li>
+</ul>

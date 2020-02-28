@@ -1,0 +1,135 @@
+<article>
+    <section class="searchDate mpadding">
+        <div class="pull-left">
+                <h4>{{ 'headquarter_master_maintainance' | translate }}</h4>
+        </div>
+        <div class="pull-right">
+            <button type="button" [ngClass]="{disabled: isDeleting, 'gen_button gen_small pull-left' : true}"
+                (click)="newform()">{{ 'new' | translate }}</button>
+            <button type="button" (click)="back()" class="gen_button gen_small pull-left">{{ 'back' | translate }}</button>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+    <!-- <menu></menu> -->
+    <mdesigntable></mdesigntable>
+    <!-- <section class="contents mcontents">
+        <div class="mloader" *ngIf="loader">{{ 'loading' | translate }}</div>
+        <div [ngClass]="{'x_hidden' : loader, 'box-body table-responsive' : true}">
+            <table  id="dataTablex" class="data_table">
+                <thead>
+                    <tr class="bg-info">
+                        <th>{{ 'headquarter_name' | translate }}</th>
+                        <th>{{ 'actions' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="tr_item_{{item.ID}}" *ngFor="let item of items">
+                        <td id="HEADQUARTERS_NAME_{{item.ID}}" (input)="onRowClick($event, item)" ngDefaultControl contenteditable='true'>{{item.HEADQUARTERS_NAME}}</td>
+                        <td>
+                            <button (click)="openEditPage(item)" type="button" class="btn btn-sm bg-blue">
+                                {{ 'edit' | translate }}
+                            </button>
+                            &nbsp;
+                            <button class="btn btn-sm btn-outline-danger"
+                            [ngClass]="{disabled: isDeleting}"
+                            (click)="showDialog(item, 'DELETE')">
+                            <i class="ion-trash-a"></i> {{ 'delete' | translate }}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section> -->
+
+    <section class="contents mcontents">
+        <table id="xdataTable" class="m-table-striped">
+            <thead>
+                <tr class="bg-info">
+                    <th>{{ 'headquarter_name' | translate }}</th>
+                    <th>{{ 'actions' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items">
+                    <td> {{item.HEADQUARTERS_NAME}} </td>
+                    <td>
+                        <button (click)="openEditPage(item)" type="button" class="gen_button gen_small">
+                            {{ 'edit' | translate }}
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-sm btn-outline-danger" [ngClass]="{disabled: isDeleting}" (click)="showDialog(item, 'DELETE')">
+                            <i class="ion-trash-a"></i> {{ 'delete' | translate }}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+</article>
+
+
+<!-- <div class="col-md-12">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ 'filter' | translate }}</h3>
+        </div>
+        <form class="form-horizontal">
+          <div class="box-body">
+            <div class="form-group">
+              <label for="area" class="col-sm-2 control-label">{{ 'region' | translate }}</label>
+              <div class="col-sm-4">
+                <select [disabled]="isSubmitting" (change)="getCountries();" [(ngModel)]="region_id" name="region_id" placeholder="Select Area" class="form-control">
+                    <option value="{{item.ID}}" *ngFor="let item of regions">{{item.REGION_NAME}}</option>
+                </select>
+              </div>
+              <label for="country" class="col-sm-2 control-label">{{ 'country' | translate }}</label>
+              <div class="col-sm-4">
+                    <select [disabled]="isSubmitting" (change)="doFilter();" [(ngModel)]="country_id" name="country_id" placeholder="Select Country" class="form-control">
+                        <option value="{{item.ID}}" *ngFor="let item of countries">{{item.COUNTRY_NAME}}</option>
+                    </select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+</div> -->
+
+<!-- <div>{{text}}</div>
+<div class="col-xs-12">
+    <div class="box">
+        <div class="mloader" *ngIf="loader">{{ 'loading' | translate }}</div>
+        <div [ngClass]="{'x_hidden' : loader, 'box-body table-responsive' : true}">
+            <table  id="dataTablex" class="table table-hover table-bordered table-striped">
+                <thead>
+                    <tr class="bg-info">
+                        <th>{{ 'headquarter_name' | translate }}</th>
+                        <th>{{ 'actions' | translate }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="tr_item_{{item.ID}}" *ngFor="let item of items">
+                        <td id="HEADQUARTERS_NAME_{{item.ID}}" (input)="onRowClick($event, item)" ngDefaultControl contenteditable='true'>{{item.HEADQUARTERS_NAME}}</td>
+                        <td>
+                            <button class="btn btn-sm bg-blue" (click)="showDialog(item, 'UPDATE')">
+                            <i class="ion-edit"></i> {{ 'edit' | translate }}
+                            </button>
+                            &nbsp;
+                            <button class="btn btn-sm btn-outline-danger"
+                            [ngClass]="{disabled: isDeleting}"
+                            (click)="showDialog(item, 'DELETE')">
+                            <i class="ion-trash-a"></i> {{ 'delete' | translate }}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> -->
+
+
+
+<modalbox [meta]="meta"></modalbox>

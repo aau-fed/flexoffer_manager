@@ -1,0 +1,61 @@
+<div class="col-md-3 pd-left-fix" *ngIf="loggedIn">
+  <aside>
+    <div class="nav-side-menu">
+      <div class="brand">Menu</div>
+      <i class="ion-android-menu toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+      <div class="menu-list">
+        <ul id="menu-content" class="menu-content collapse out">
+
+          <li>
+            <a [routerLink]="['/dashboard']">
+              <i class="icon ion-ios-home-outline"></i> <span>Overview</span>
+            </a>
+          </li>
+
+          <ul class="sub-menu collapse" id="overview">
+            <li><a href="#" [routerLink]="['/active-portfolio']">Active Portfolio</a></li>
+          </ul>
+
+          <li data-toggle="collapse" data-target="#users" class="collapsed">
+            <a href="javascript:void(0);"><i class="icon ion-ios-people-outline"></i> <span>Users</span> <span
+                class="ion-chevron-down"></span></a>
+          </li>
+          <ul class="sub-menu collapse" id="users">
+            <li><a href="#" [routerLink]="['/user/map']">Map</a></li>
+            <li><a href="#" [routerLink]="['/user/list']">List</a></li>
+            <li><a href="javascript:void(0);" [routerLink]="['/user-loads']">Active Loads</a></li>
+            <li><a href="javascript:void(0);" [routerLink]="['/historical-loads']">Historical Loads</a></li>
+          </ul>
+
+
+          <li data-toggle="collapse" data-target="#trading" class="collapsed">
+            <a href="javascript:void(0);"><i class="icon ion-bag"></i> <span>Trading</span> <span
+                class="ion-chevron-down"></span></a>
+          </li>
+          <ul class="sub-menu collapse" id="trading">
+            <li><a [routerLink]="['/trading']">Status</a></li>
+            <li><a [routerLink]="['/trading-history']">History</a></li>
+            <li><a [routerLink]="['/portfolio-loads']">Portfolio Loads</a></li>
+            <li><a [routerLink]="['/trading-kpis']">KPIs</a></li>
+          </ul>
+
+
+          <li data-toggle="collapse" data-target="#config" class="collapsed">
+            <a href="javascript:void(0);"><i class="icon ion-ios-cog-outline"></i> <span>Configuration</span> <span
+                class="ion-chevron-down"></span></a>
+          </li>
+          <ul class="sub-menu collapse" id="config">
+            <li><a [routerLink]="['/user-profile', userName]">User Profile</a></li>
+            <li><a [routerLink]="['/aggregator-settings']">Main Settings</a></li>
+            <li><a [routerLink]="['/trading-config']">Trading Settings</a></li>
+            <!-- <li><a [routerLink]="['/connect-settings']">Connect Setting</a></li> -->
+          </ul>
+          <li>
+            <a href="javascript:void(0)" (click)="openDialog()"><i class="icon ion-log-out"></i> <span>Log
+                Out</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+</div>

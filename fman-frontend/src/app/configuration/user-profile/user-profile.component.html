@@ -1,0 +1,150 @@
+<div class="col-md-9 sn-form sn-form-profile">
+  <h2 class="title text-center" style="margin-bottom: 25px;">User Profile: {{user?.userName}}</h2>
+  <form [formGroup]="userForm" (submit)="openDialog()">
+
+    <fieldset [disabled]="submitted">
+
+      <div class="form-group">
+        <a href="javascript:void(0);" (click)="openBill(user?.userName)" title="Bill"><i class="icon ion-cash"></i> Open
+          user bill</a>
+        <p> </p>
+        <a href="javascript:void(0);" (click)="openContract(user?.userName)" title="Contract"><i
+            class="icon ion-clipboard"></i> Open user contract</a>
+      </div>
+
+      <div class="form-group" [ngClass]="{
+                            'has-error': f.userName.invalid,
+                            '': f.userName.valid
+                          }">
+        <label>User Id</label>
+        <input formControlName="userId" placeholder="User Id" class="form-control" type="text" required />
+        <div class="help-block" *ngIf="f.userId.invalid">User Id is required</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{
+                                'has-error': f.userName.invalid,
+                                '': f.userName.valid
+                              }">
+        <label>User Name</label>
+        <input formControlName="userName" placeholder="User Name" class="form-control" type="text" required />
+        <div class="help-block" *ngIf="f.userName.invalid">User Name is required</div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-md-6" [ngClass]="{
+                    'has-error': f.password.invalid,
+                    '': f.password.valid
+                                }">
+          <label>Password</label>
+          <input formControlName="password" placeholder="Password *" class="form-control" type="password" required />
+          <div class="help-block" *ngIf="f.password.invalid">Password is required</div>
+        </div>
+        <div class="form-group col-md-6" [ngClass]="{
+                    'has-error': f.password_repeat.invalid,
+                    '': f.password_repeat.valid
+                                }">
+          <label>Repeat Password</label>
+          <input formControlName="password_repeat" placeholder="Password *" class="form-control" type="password"
+            required />
+          <div class="help-block" *ngIf="f.password_repeat.invalid">Passwords do not match</div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="form-group col-md-6" [ngClass]="{
+                    'has-error': f.firstName.invalid,
+                    '': f.firstName.valid
+                                }">
+          <label>First Name</label>
+          <input formControlName="firstName" placeholder="First Name *" class="form-control" type="text" required />
+          <div class="help-block" *ngIf="f.firstName.invalid">First Name is required</div>
+        </div>
+
+        <div class="form-group col-md-6" [ngClass]="{
+                    'has-error': f.lastName.invalid,
+                    '': f.lastName.valid
+                                }">
+          <label>Last Name</label>
+          <input formControlName="lastName" placeholder="Last Name *" class="form-control" type="text" required />
+          <div class="help-block" *ngIf="f.lastName.invalid">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group" [ngClass]="{
+                    'has-error': f.email.invalid,
+                    '': f.email.valid
+                                }">
+        <label>Email</label>
+        <input formControlName="email" placeholder="Email *" class="form-control" type="email" required
+          pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+        <div *ngIf="f.email.errors" class="help-block">
+          <div *ngIf="f.email.errors.required">Must provide email</div>
+          <div *ngIf="f.email.errors.pattern">Invalid email format</div>
+        </div>
+      </div>
+
+      <div *ngIf="loggedInUser?.role==='ROLE_ADMIN'" class="form-group" [ngClass]="{
+        'has-error': f.role.invalid,
+        '': f.role.valid
+                    }">
+        <strong>User Role </strong>
+        <select formControlName="role" id="role">
+          <option *ngFor="let r of ['ROLE_ADMIN', 'ROLE_PROSUMER', 'ROLE_BROKER']" [value]="r" [selected]="f.role == r">
+            {{r}}
+          </option>
+        </select>
+        <div class="help-block" *ngIf="f.role.invalid">Role is required</div>
+      </div>
+
+      <div *ngIf="loggedInUser?.role==='ROLE_ADMIN'" class="form-group">
+        <label>
+          Is Enabled?
+          <input formControlName="enabled" type="checkbox" required />
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+
+        <div class="form-group">
+          <input placeholder="search for location or select on the map" autocorrect="off" autocapitalize="off"
+            spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+        </div>
+
+        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [zoomControl]="true" [disableDefaultUI]="false"
+          [scrollwheel]="true" (mapClick)="mapClicked($event)">
+          <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+
+            <agm-info-window>
+              <p><strong>User:</strong> {{user?.userName}}</p>
+              <p><strong>Latitude:</strong>{{ lat }}</p>
+              <p><strong>Longitude:</strong>{{ lng }}</p>
+            </agm-info-window>
+
+          </agm-marker>
+
+        </agm-map>
+      </div>
+    </fieldset>
+
+    <div class="form-group">
+      <button [disabled]="loading || !modified" class="btn btn-primary">Update</button>
+      <img *ngIf="loading"
+        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <a (click)="onReset()" class="btn btn-link">Clear</a>
+    </div>
+
+  </form>
+
+
+  <div class="links text-center">
+    <small class="form-text">
+      Delete the profile <a href="javascript:void(0)" (click)="openDeleteDialog()">
+        <mat-icon>delete</mat-icon>
+      </a>
+    </small>
+  </div>
+
+
+</div>

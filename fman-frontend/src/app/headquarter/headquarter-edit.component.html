@@ -1,0 +1,114 @@
+<!-- <section class="content-header clearfix col-md-12 pull-left margin-bottom">
+    <h1 class="pull-left pt-5">
+        {{ 'headquarter_master_maintainance' | translate }}
+    </h1>
+    <div class="pull-right">
+        <button type="button" (click)="back()" class="btn bg-navy margin">{{ 'back' | translate }}</button>
+    </div>
+</section>
+
+<div class="editor-page">
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-xs-12 box box-info">
+
+                <list-errors [errors]="errors"></list-errors>
+
+                <form class="form-horizontal col-md-offset-3 col-md-6" [formGroup]="uForm">
+                    <div class="box-body">
+                        <fieldset [disabled]="isSubmitting">
+
+                            <fieldset class="form-group">
+                                <label for="dist-code" class="col-sm-4 control-label">{{ 'headquarter_name' | translate }}</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" 
+                                    formControlName="HEADQUARTERS_NAME" 
+                                    type="text"
+                                    placeholder="{{ 'headquarter_name' | translate }}" />
+                                </div>
+                            </fieldset>
+
+                        </fieldset>
+                    </div>
+
+                    <div class="box-footer text-center">
+                        <button type="submit" class="btn bg-green margin" type="button" (click)="update(item)">{{ 'save' | translate }}</button>
+                        <button *ngIf="new_mode" type="submit" class="btn bg-red margin" type="button" (click)="delete(item)">{{ 'delete' | translate }}</button>
+                        <button type="submit" class="btn bg-navy margin" type="button" (click)="cancel()">{{ 'cancel' | translate }}</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<article>
+    <section class="searchDate mpadding">
+        <div class="pull-left">
+                <h4>{{ 'headquarter_master_maintainance' | translate }}</h4>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+    
+    <section class="contents mcontents mform">
+            <list-errors [errors]="errors"></list-errors>
+
+            <form class="form-horizontal" [formGroup]="uForm">
+                <div class="box-body">
+                    <fieldset [disabled]="isSubmitting">
+
+                        <fieldset class="form-group">
+                            <label for="headquarter_name" class="col-sm-4 control-label">{{ 'headquarter_name' | translate }}</label>
+                            <div class="col-sm-4">
+                                        <input class="form-control" formControlName="HEADQUARTERS_NAME" type="text" placeholder="{{ 'headquarter_name' | translate }}" />
+                            </div>
+                        </fieldset>
+
+                        <!-- ############old below thi -->
+
+
+                    </fieldset>
+                </div>
+                <!-- /.box-body -->
+                <div>
+                    <table style="margin: auto;">
+                        <tr>
+                            <td>
+                                <button type="submit" class="gen_button gen_small" type="button" (click)="update(item)">{{ 'save' | translate }}</button>
+                            </td>
+                            <td *ngIf="new_mode">
+                                <button  type="submit" class="gen_button gen_small" type="button" (click)="delete(item)">{{ 'delete' | translate }}</button>
+                            </td>
+                            <td>
+                                <button type="submit" class="gen_button gen_small" type="button" (click)="cancel()">{{ 'cancel' | translate }}</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- /.box-footer -->
+            </form>
+    </section>
+</article>
+
+<div class="modal fade" id="dialogbox">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{ dialog_title | translate }}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ dialog_body | translate }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="executeModalAction()" class="btn btn-default" data-dismiss="modal">{{ 'yes' | translate }}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'no' | translate }}</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

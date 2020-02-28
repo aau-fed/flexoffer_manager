@@ -1,0 +1,179 @@
+<section class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div [ngClass]="{'col-md-12': authType == 'login',
+                           'col-md-9': authType != 'login'}">
+
+              <div [ngClass]="{'col-md-offset-3': authType == 'login',
+                               'col-md-6': authType == 'login',
+                               'sn-form': authType == 'login',
+                               'sn-form-nomargin': authType != 'login',
+                               'col-md-12': authType != 'login'}">              
+
+                  <section class="sign-up" *ngIf="authType == 'register'">
+                  <h2 class="title text-center" style="margin-bottom: 25px;">Sign Up</h2>
+                  <list-errors [errors]="errors"></list-errors>
+                  <form [formGroup]="signupForm" (ngSubmit)="submitSignUpForm()">
+                      <fieldset [disabled]="isSubmitting">
+
+                        <div class="form-group" [ngClass]="{
+                                      'has-error': signupForm.controls.firstName.invalid && signupForm.controls.firstName.touched,
+                                      '': signupForm.controls.firstName.valid && signupForm.controls.firstName.touched
+                                    }">
+                          <input
+                            formControlName="firstName"
+                            placeholder="First Name *"
+                            class="form-control"
+                            type="text"
+                            required
+                            />
+                            <div class="help-block" *ngIf="signupForm.controls.firstName.touched && signupForm.controls.firstName.invalid">First Name is required</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{
+                                      'has-error': signupForm.controls.lastName.invalid && signupForm.controls.lastName.touched,
+                                      '': signupForm.controls.lastName.valid && signupForm.controls.lastName.touched
+                                    }">
+                          <input
+                            formControlName="lastName"
+                            placeholder="Last Name *"
+                            class="form-control"
+                            type="text"
+                            required
+                            />
+                            <div class="help-block" *ngIf="signupForm.controls.lastName.touched && signupForm.controls.lastName.invalid">Last Name is required</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{
+                                      'has-error': signupForm.controls.userName.invalid && signupForm.controls.userName.touched,
+                                      '': signupForm.controls.userName.valid && signupForm.controls.userName.touched
+                                    }">
+                          <input
+                            formControlName="userName"
+                            placeholder="Username *"
+                            class="form-control"
+                            type="text"
+                            required
+                            />
+                            <div class="help-block" *ngIf="signupForm.controls.userName.touched && signupForm.controls.userName.invalid">Username is required</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{
+                                      'has-error': signupForm.controls.email.invalid && signupForm.controls.email.touched,
+                                      '': signupForm.controls.email.valid && signupForm.controls.email.touched
+                                    }">
+                          <input
+                            formControlName="email"
+                            placeholder="Email *"
+                            class="form-control"
+                            type="email"
+                            required
+                            />
+                            <div class="help-block" *ngIf="signupForm.controls.email.touched && signupForm.controls.email.invalid">Valid Email is required</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{
+                                      'has-error': signupForm.controls.password.invalid && signupForm.controls.password.touched,
+                                      '': signupForm.controls.password.valid && signupForm.controls.password.touched
+                                    }">
+                          <input
+                            formControlName="password"
+                            placeholder="Password *"
+                            class="form-control"
+                            type="password"
+                            required />
+                          <div class="help-block" *ngIf="signupForm.controls.password.touched && signupForm.controls.password.invalid">Password is required</div>
+                        </div>
+                      </fieldset>
+
+                      <!-- <div class="form-group accept-group col-sm-12" [ngClass]="{
+                                      'has-error': signupForm.controls.term.invalid && signupForm.controls.term.dirty,
+                                      '': signupForm.controls.term.valid && signupForm.controls.term.dirty
+                                    }">
+                          <label class="custom-control custom-checkbox">
+                              <input class="custom-control-input" type="checkbox" formControlName="term" required>
+                              <span class="custom-control-indicator"></span>
+                              <span class="custom-control-description">
+                                  Agree to
+                                  <a href="#" target="_blank">
+                                      <strong>Terms &amp; Conditions</strong>
+                                  </a>
+                              </span>
+                              <div class="help-block" *ngIf="signupForm.controls.term.dirty && signupForm.controls.term.invalid">Accept the term</div>
+                          </label>
+                      </div> -->
+                      <button class="btn btn-block btn-hero-success" type="submit" [disabled]="!signupForm.valid">
+                          Register
+                      </button>
+                  </form>
+                  <div class="links text-center">
+                      <!-- <small class="form-text">
+                          Already have an account?
+                          <a routerLink="/login">
+                              <strong>Sign In</strong>
+                          </a>
+                      </small> -->
+                  </div>
+                </section>
+                <!-- sign up ends -->
+
+                <!-- login Starts -->
+                <section class="sign-up" *ngIf="authType == 'login'">
+                        <h2 class="title text-center" style="margin-bottom: 25px;">Sign In</h2>
+                        <list-errors [errors]="errors"></list-errors>
+                        <form [formGroup]="authForm" (ngSubmit)="submitLoginForm()">
+                            <fieldset [disabled]="isSubmitting">
+
+                              <fieldset class="form-group" [ngClass]="{
+                                      'has-error': authForm.controls.userName.invalid && authForm.controls.userName.touched,
+                                      '': authForm.controls.userName.valid && authForm.controls.userName.touched
+                                    }">
+                                <input
+                                  formControlName="userName"
+                                  placeholder="Username"
+                                  class="form-control"
+                                  type="text"
+                                  required
+                                  />
+                                  <div class="help-block" *ngIf="authForm.controls.userName.touched && authForm.controls.userName.invalid">Username is required</div>
+                              </fieldset>
+
+                              <fieldset class="form-group" [ngClass]="{
+                                      'has-error': authForm.controls.password.invalid && authForm.controls.password.touched,
+                                      '': authForm.controls.password.valid && authForm.controls.password.touched
+                                    }">
+                                <input
+                                  formControlName="password"
+                                  placeholder="Password"
+                                  class="form-control"
+                                  type="password"
+                                  required
+                                  />
+                                  <div class="help-block" *ngIf="authForm.controls.password.touched && authForm.controls.password.invalid">Password is required</div>
+                              </fieldset>
+                            </fieldset>
+                            <button class="btn btn-block btn-hero-success" type="submit" [disabled]="!authForm.valid">
+                                Sign In
+                            </button>
+                        </form>
+
+                    
+                    
+
+                            <div class="links text-center">
+
+                            <!-- 
+                                
+                                Laurynas: We disable external sing-ups. Only admin should register new users
+
+                            <small class="form-text">
+                                 Don't have an account?
+                                <a routerLink="/register">
+                                    <strong>Sign Up</strong>
+                                </a>
+                            </small> -->
+                            </div> 
+
+                      </section>
+                      <!-- Login ends -->
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

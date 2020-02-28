@@ -1,0 +1,16 @@
+<div class="col-md-9">
+  <div class="bg-white">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <h2>Portfolio Loads</h2>
+
+        <p *ngIf="loading_portfolio">Reoptimizing portfolio. Please wait...</p>
+        <flexoffersetview *ngIf="!loading_portfolio" [flexoffers]="portfolioFOs"></flexoffersetview>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

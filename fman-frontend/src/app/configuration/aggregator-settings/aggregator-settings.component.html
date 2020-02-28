@@ -1,0 +1,56 @@
+<div class="col-md-9">
+    <div class="bg-white">
+        <div class="panel panel-default">
+            <h2 class="title text-center" style="margin-bottom: 25px;">Main Settings</h2>
+            <div class="panel-body">
+
+
+                    <div class="form-group">  
+                        <strong>Aggregation enabled:</strong> 
+                        <input type="checkbox" [(ngModel)]="config.aggregationEnabled" (ngModelChange)="onDashboardChange($event)">
+                        <div class="help-block">This option increases optimization performance (speed and result quality) when many loads (>20) are available</div>
+                    </div>
+                    
+
+                    <div class="form-group">  
+                      <strong>Trading enabled:</strong>
+                      <input type="checkbox" [(ngModel)]="config.tradingEnabled" (ngModelChange)="onDashboardChange($event)">
+                      <div class="help-block">This enables or disables flexibility trading with INEA's FMAR</div>
+                    </div>
+
+                    <div class="form-group">  
+                        <strong>Optimization target:</strong>
+                            <select [(ngModel)]="config.optimizationObjective" (ngModelChange)="onDashboardChange($event)" >
+                                <option value='objLowestCost'>Minimize cost</option>
+                                <option value='objEnergyBalance'>Demand and supply balancing</option>
+                                <option value='objEnergyMin'>Minimize energy in a selected timeStamp window</option>
+                                <option value='objEnergyMax'>Maximize energy in a selected timeStamp window</option>
+                                <option value='objFollowFMAR'>Follow schedules of the GOFLEX market (FMAR)</option>
+                        </select>
+                        
+                        <div *ngIf="config.optimizationObjective == 'objEnergyMin' || config.optimizationObjective == 'objEnergyMax'" >
+                            <p>
+                                    <strong>Optimization interval from: </strong>
+                                    <!-- <input type="datetime" [(ngModel)]="config.optimizationFrom" (ngModelChange)="onDashboardChange($event)"/>                                    -->
+                                    <input type="text" [(ngModel)]="config.optimizationFrom" placeholder="Date Range Picker" class="form-control"
+                                        bsDatepicker (ngModelChange)="onDashboardChange($event)"
+                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD HH:mm:ss' }">
+                            </p>
+
+                            <p>
+                                    <strong>Optimization interval to: </strong>
+                                    <input type="text" [(ngModel)]="config.optimizationTo" placeholder="Date Range Picker" class="form-control"
+                                            bsDatepicker (ngModelChange)="onDashboardChange($event)"
+                                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD HH:mm:ss' }">
+                            </p>
+
+                        </div>
+
+                        <div class="help-block">Specifies which load optimization target is desired.</div>
+                    </div>
+
+
+            </div>
+        </div>                    
+      </div>
+</div>

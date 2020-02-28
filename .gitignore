@@ -1,0 +1,30 @@
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.classpath
+.project
+.settings/
+ 
+# Intellij
+.idea
+*.iws
+*.iml
+*.ipr
+
+ 
+# Mac
+.DS_Store
+ 
+# Maven
+log/
+target/
+
+fman-backend/src/main/java/org/goflex/wp2/fman/security/WebSecurityConfig.java
+fman-frontend/src/environments/environment.ts
+core-api/target/
+#fman-backend/src/main/resources/fman.properties
+#fman-backend/src/main/resources/application-cyprus.properties
+#fman-backend/src/main/resources/application-swiss.properties
+#fman-backend/src/main/resources/application-sww.properties
+*.log

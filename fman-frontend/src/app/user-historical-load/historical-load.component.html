@@ -1,0 +1,118 @@
+<div class="col-md-9">
+  <div class="bg-white">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <h2>Historical Loads</h2>
+
+        <div class="col-md-9">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="col-xs-4 col-2 col-md-4">Select a user: </div>
+
+              <div class="col-xs-8 col-10 col-md-8">
+                <select class="form-control" placeholder="Select a user" [(ngModel)]="selectedUser"
+                  (ngModelChange)="filterCriteriaChanged($event)">
+                  <option *ngFor="let user of users">
+                    {{user.userName}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-xs-4 col-2 col-md-4">Select a time period: </div>
+              <div class="col-xs-8 col-10 col-md-8">
+
+                <input type="text" [(ngModel)]="dateInterval" placeholder="Date Range Picker" class="form-control"
+                  bsDaterangepicker (ngModelChange)="filterCriteriaChanged($event)">
+              </div>
+
+              <div class="col-xs-4 col-2 col-md-4">Select FlexOffer states: </div>
+              <div class="col-xs-8 col-10 col-md-8">
+
+                <angular2-multiselect [data]="stateList" [(ngModel)]="selectedStates" [settings]="dropdownSettings"
+                  (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)"
+                  (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                  (ngModelChange)="filterCriteriaChanged($event)">
+                </angular2-multiselect>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <tabset [justified]="true">
+
+          <tab heading="Aggregated View" customClass="tab-style">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <fieldset class="col-md-12">
+                  <legend>Time Series</legend>
+                  <div class="panel panel-default">
+                    <div #chartContainer class="panel-body">
+                      <chart style="display: block;" [options]="chartOptions" (load)="saveInstance($event.context)">
+                      </chart>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </tab>
+
+          <tab heading="Map View" customClass="tab-style">
+            <pagination [itemsPerPage]="pageSize" [totalItems]="datasetSize" [(ngModel)]="currentPage"
+              [boundaryLinks]="true" (pageChanged)="pageChange($event)" [maxSize]="10">
+            </pagination>
+
+            <flexoffersetview [flexoffers]="flexoffers" [viewMode]="3" [showViewMode]="false"></flexoffersetview>
+          </tab>
+
+          <tab heading="Tabular View" customClass="tab-style">
+
+            <pagination [itemsPerPage]="pageSize" [totalItems]="datasetSize" [(ngModel)]="currentPage"
+              [boundaryLinks]="true" (pageChanged)="pageChange($event)" [maxSize]="10">
+            </pagination>
+
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>FlexOffer Id</th>
+                  <th>Label</th>
+                  <th>User</th>
+                  <th>Creation Time</th>
+                  <th>FlexOffer Status</th>
+                  <th>Offer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let h of data" class="item-in-list el" animate="fadeIn">
+                  <td>{{ h.id }}</td>
+                  <td>{{ h.flexoffer.label }}</td>
+                  <td>{{ h.user ? h.user.userName : h.flexoffer.offeredById }}</td>
+                  <td>{{ h.creationTime | amCalendar }}</td>
+                  <td>{{ h.status }}</td>
+                  <td><button class="btn" (click)="showOffer(h)">
+                      <span class="glyphicon glyphicon-asterisk"></span>&nbsp;&nbsp;Show Offer
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+          </tab>
+
+          <tab heading="Graphical View" customClass="tab-style" (select)="foTabSelected($event)">
+
+
+            <pagination [itemsPerPage]="pageSize" [totalItems]="datasetSize" [(ngModel)]="currentPage"
+              [boundaryLinks]="true" (pageChanged)="pageChange($event)" [maxSize]="10">
+            </pagination>
+
+            <flexoffersetview [flexoffers]="flexoffers" [viewMode]="0"></flexoffersetview>
+
+
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

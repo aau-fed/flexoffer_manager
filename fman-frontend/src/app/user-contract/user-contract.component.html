@@ -1,0 +1,110 @@
+<div class="col-md-9">
+    <div class="bg-white">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                
+
+                            <div class="modal-header">
+                              <h2 class="modal-title pull-left">Contract between Aggregator and the User: {{userName}}</h2>
+                            </div>
+              
+                            <div class="modal-body">
+                              <form [formGroup]="contractForm" (ngSubmit)="contractSubmit()">
+                                <div ng-class="messageType" role="alert" ng-bind="messageText"></div>
+
+                                <div class="form-group" [ngClass]="{
+                                                          'has-error': f.energyFlexReward.invalid,
+                                                          '': f.energyFlexReward.valid
+                                                        }">
+                                  <label for="energyFlexReward">Reward (in EUR) for a single unit (dkWh) of energy flexibility</label>
+              
+                                  <input formControlName="energyFlexReward" class="form-control" id="energyFlexReward" type="text">
+                                  <div *ngIf="f.energyFlexReward.errors" class="help-block">
+                                      Invalid value
+                                  </div>
+                                </div>
+              
+                                <div class="form-group" [ngClass]="{
+                                                        'has-error': f.fixedReward.invalid,
+                                                        '': f.fixedReward.valid
+                                                      }">
+                                  <label for="fixedReward">Fixed reward (in EUR) for issuing at least 1 flexoffer</label>
+                                  <input class="form-control" id="fixedReward" formControlName="fixedReward" type="text">
+                                  <div *ngIf="f.fixedReward.errors" class="help-block">
+                                      Invalid value
+                                  </div>
+                                </div>
+                                <div class="form-group"  [ngClass]="{
+                                                          'has-error': f.schedulingEnergyReward.invalid,
+                                                          '': f.schedulingEnergyReward.valid
+                                                        }">
+                                  <label for="schedulingEnergyReward">Reward (in Euro) for a single unit deviation (kWh) in energy amount
+                                                    compared to the default schedule (baseline)</label>
+                                  <input class="form-control" id="schedulingEnergyReward" formControlName="schedulingEnergyReward"
+                                    type="text">
+                                    <div *ngIf="f.schedulingEnergyReward.errors" class="help-block">
+                                        Invalid value
+                                    </div>
+                                </div>
+                                <div class="form-group"  [ngClass]="{
+                                                            'has-error': f.schedulingFixedReward.invalid,
+                                                            '': f.schedulingFixedReward.valid
+                                                          }">
+                                  <label for="schedulingFixedReward">Fixed reward paid for deviating a single timeStamp (1 flexoffer) from the
+                                      default schedule (baseline)</label>
+                                  <input class="form-control" id="schedulingFixedReward" formControlName="schedulingFixedReward" type="text">
+                                  <div *ngIf="f.schedulingFixedReward.errors" class="help-block">
+                                      Invalid value
+                                  </div>
+                                </div>
+                                <div class="form-group" [ngClass]="{
+                                                            'has-error': f.schedulingStartTimeReward.invalid,
+                                                            '': f.schedulingStartTimeReward.valid
+                                                          }">
+                                  <label for="schedulingStartTimeReward">Reward (in EUR) for a single unit deviation (15 min) from the default
+                                      schedule (baseline)</label>
+                                  <input class="form-control" id="schedulingStartTimeReward" formControlName="schedulingStartTimeReward"
+                                    type="text">
+                                    <div *ngIf="f.schedulingStartTimeReward.errors" class="help-block">
+                                        Invalid value
+                                    </div>
+                                </div>
+
+                                <div class="form-group" [ngClass]="{
+                                                        'has-error': f.timeFlexReward.invalid,
+                                                        '': f.timeFlexReward.valid
+                                                      }">
+                                  <label for="timeFlexReward">Reward (in EUR) for a single unit of timeStamp flexibility</label>
+                                  <input class="form-control" id="timeFlexReward" formControlName="timeFlexReward" type="text">
+                                  <div *ngIf="f.timeFlexReward.errors" class="help-block">
+                                      Invalid value
+                                  </div>
+                                </div>
+
+                                <div class="form-group" [ngClass]="{
+                                                            'has-error': f.imbalanceLimitPerTimeInterval.invalid,
+                                                            '': f.imbalanceLimitPerTimeInterval.valid
+                                                          }">
+                                  <label for="imbalanceLimitPerTimeInterval">Allowed limit of imbalance (kWh) between scheduled and actually consumed/produced energy for the user offer to be considered correctly executed.</label>
+                                  <input class="form-control" id="imbalanceLimitPerTimeInterval" formControlName="imbalanceLimitPerTimeInterval" type="text">
+                                  <div *ngIf="f.imbalanceLimitPerTimeInterval.errors" class="help-block">
+                                      Invalid value
+                                  </div>
+                                </div>
+
+                                <div class="form-group">
+                                  <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-block btn-hero-success" [disabled]="contractForm.pristine || !contractForm.valid">Update</button>
+                                  </div>
+                                </div>
+                              </form>
+                              <div class="links"></div>
+                              <div class="clearfix"></div>
+                            </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div><!--col-md-9 ends-->

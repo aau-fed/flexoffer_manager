@@ -1,0 +1,148 @@
+<div class="col-md-9">
+    <div class="bg-white">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <div class="modal-header">
+                        <h2 class="modal-title pull-left">User Bill: {{userName}}</h2>
+                </div>
+                
+                      <div class="modal-body">
+                        <div class="bill-header">
+                          <div class="form-group form-group-sm pull-left col-md-6 col-xs-12">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <!-- <div class="col-sm-10 input-group"> -->
+                                <label class="control-label"> Date:</label>
+                                <div class="input-group">
+          
+                                  <input placeholder="Please pick the date" [(ngModel)]="bill_date" class="form-control" type="text" class="form-control" 
+                                         #dpYMD="bsDatepicker"
+                                         [bsConfig]="{ dateInputFormat: 'YYYY/MM' }"
+                                         bsDatepicker> 
+                                
+        
+        
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-sm" (click)="getBill()">Go</button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>
+                                  Item
+                                </th>
+                                <th>
+                                  Value
+                                </th>
+                                <th>
+                                  Price
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  Number of flexoffers
+                                </td>
+                                <td>
+                                  <div for="noOfFlexoffers">
+                                        {{bill.numFlexOffers}}
+                                  </div>
+                                </td>
+                                <td>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  Fixed reward for all flexoffers
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    {{bill.rewardFixed | currency:'EUR'}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  Total Time Flexibility
+                                </td>
+                                <td>
+                                        {{bill.totalTimeFlex}} timeStamp units (15min)
+                                </td>
+                                <td>
+                                        {{bill.rewardTotalTimeFlex | currency:'EUR' }}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  Total Energy Flexibility
+                                </td>
+                                <td>
+                                    {{bill.totalEnergyFlex}} dkWh
+                                </td>
+                                <td>
+                                    {{bill.rewardTotalEnergyFlex | currency:'EUR'}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  Number of default schedule deviations
+                                </td>
+                                <td>
+                                  {{bill.numCustomScheduleActivations}}
+                                </td>
+                                <td>
+                                  {{bill.rewardTotalSchedFixed | currency:'EUR'}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  The sum of stat-time scheduling deviations with respect to the default schedule
+                                </td>
+                                <td>
+                                  {{bill.totalStartTimeDeviations}} timeStamp units (15 min)
+                                </td>
+                                <td>
+                                  {{bill.rewardTotalSchedEST | currency:'EUR'}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  The sum of energy deviations with respect to the default schedule
+                                </td>
+                                <td>
+                                  {{bill.totalEnergyDeviations}} dkWh
+                                </td>
+                                <td>
+                                  {{bill.rewardTotalSchedEnergy | currency:'EUR'}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="2">
+                                  Total Reward
+                                </th>
+                                <th>
+                                  <label for="ttl">
+                                    {{bill.rewardTotal | currency:'EUR'}}
+                                  </label>
+                                </th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                
+              
+            </div>
+        </div>
+    </div>
+</div><!--col-md-9 ends-->

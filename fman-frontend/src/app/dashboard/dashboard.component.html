@@ -1,0 +1,75 @@
+<div class="col-md-9">
+  <div class="bg-white">
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="col-md-12">
+          <legend>Summary / KPIs</legend>
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+
+              <div class="col-md-6">
+                <p><strong>Optimization objective:</strong> {{
+                                    data.optimizationObjective == 'objLowestCost' ? 'Minimize cost' :
+                                    (data.optimizationObjective == 'objEnergyBalance' ? 'Demand and supply balancing' :
+                                    (data.optimizationObjective == 'objEnergyMin' ? 'Minimize energy in a selected timeStamp window' :
+                                    (data.optimizationObjective == 'objEnergyMax' ? 'Maximize energy in a selected timeStamp window' :
+                                    (data.optimizationObjective == 'objFollowFMAR' ? 'Follow schedules of the GOFLEX market (FMAR)' : ''))))
+                                }}</p>
+
+                <p><strong>Current operating power:</strong> {{data.currentOperatingPower | number}} kW</p>
+                <p><strong>No of Active Prosumer:</strong> {{data.numOfActiveUsers}}</p>
+                <p><strong>Total No of Prosumers:</strong> {{data.totalNoOfUsers}}</p>
+                <p><strong>Consumption flexibility level:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).consumptionFlexibilityLevel * 100 | number}} %</p>
+                <p><strong>Consumption avg. variability:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).consumptionVariability | number}} dkWh/h</p>
+                <p><strong>Consumption avg. peak load:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).consumptionPeak | number}} kWh/h</p>
+                <p><strong>Consumption adaptability level:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).consumptionAdaptabilityLevel * 100.0 | number}} %</p>
+              </div>
+
+              <div class="col-md-6">
+                <p><strong>Production flexibility level:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).productionFlexibilityLevel * 100 | number}} %</p>
+                <p><strong>Production avg. variability:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).productionVariability | number}} dkWh/h</p>
+                <p><strong>Production avg. peak load:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).productionPeak | number}} kWh/h</p>
+                <p><strong>Production adaptability level:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).productionAdaptabilityLevel * 100.0 | number}} %</p>
+
+                <!-- <p><strong>Trading enabled:</strong> {{config.tradingEnabled || "no"}}</p> -->
+                <p><strong>Avg. baseline energy:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).avgBaselineEnergy | number}} kWh/h</p>
+                <p><strong>Avg. scheduled energy:</strong>
+                  {{ (data.kpiLoadAdaptability || {}).avgScheduledEnergy | number}} kWh/h</p>
+                <p><strong>Expected aggregator costs:</strong>
+                  {{ (data.kpiAggregatorBenefit || {}).expectedAggregatorCosts | currency:'EUR'}}</p>
+                <p><strong>Expected aggregator gains:</strong>
+                  {{ (data.kpiAggregatorBenefit || {}).expectedAggregatorGains | currency:'EUR'}}</p>
+              </div>
+
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="col-md-12">
+          <legend>Time Series</legend>
+          <div class="panel panel-default">
+            <div #chartContainer class="panel-body">
+              <chart style="display: block;" [options]="chartOptions" (load)="saveInstance($event.context)"></chart>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    <!--col-md-9 ends-->
+  </div>
+</div>

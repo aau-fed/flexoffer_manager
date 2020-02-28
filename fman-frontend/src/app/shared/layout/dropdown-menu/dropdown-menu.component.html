@@ -1,0 +1,30 @@
+<!--
+<div class="btn-group" dropdown>
+  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+    <span><i class="glyphicon glyphicon-user "></i></span> User Settings
+  </button>
+
+  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+    <li role="menuitem"><a class="dropdown-item" [routerLink]="['/profile']">Profile</a></li>
+    <li class="divider dropdown-divider"></li>
+    <li role="menuitem"><a class="dropdown-item" (click)="authSvc.logout()">Logout</a>
+    </li>
+  </ul>
+</div>
+<button mat-button [matMenuTriggerFor]="menu">
+
+  <img src="assets/img/nick.png" class="img-circle img-thumbnail" alt="user image">
+  <span><i class="glyphicon glyphicon-user "></i></span> {{ currentUser }}
+</button>
+-->
+<div class="col-md-3">
+  <div class="user-image" [matMenuTriggerFor]="menu">
+      <img src="assets/img/nick.png" class="img-circle img-thumbnail" alt="user image">
+      {{userName}}
+  </div>
+  <mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item [routerLink]="['/user-profile', userName]"><mat-icon>account_circle</mat-icon>Profile</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="openDialog()"><mat-icon>exit_to_app</mat-icon>Logout</button>
+  </mat-menu>
+</div>

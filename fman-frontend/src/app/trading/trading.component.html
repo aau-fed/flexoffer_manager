@@ -1,0 +1,64 @@
+<div class="col-md-9">
+  <div class="bg-white">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h2>Status</h2>
+        <p>{{tradingState == null ? "Unavailable": 
+            (tradingState == 0 ? "INEA's FMAR Disconnected" :
+             (tradingState == 1 ? "INEA's FMAR Connected" :
+              (tradingState == 2 ? "Bid has been submitted and waiting for market response" : 
+               (tradingState == 3 ? "Market commitment formed: waiting for execution" :
+          (tradingState == 4 ? "Market commitment formed: executing" : ""))))) }}</p>
+
+        <portfoliosummary [activePortfolio]="activePortfolio"></portfoliosummary>
+
+        <div *ngIf="activePortfolio != null">
+          <form>
+            <button (click)="sendOffer($event)">
+              Send or update an FMAR bid now
+            </button>
+          </form>
+        </div>
+
+
+
+        <h2>Last FMAR Transaction</h2>
+        <div *ngIf="activeTransactionOffers == null; else activeTransactionContent">
+          <p>No active trading is in progress</p>
+        </div>
+
+        <ng-template #activeTransactionContent>
+          <p>Based on the active loads available, the system has issued an offer to the INEA's FMAR. </p>
+          <table class="table table-striped table-bordered">
+            <tbody>
+              <tr>
+                <td><span data-toggle="tooltip" data-placement="top" title="Transaction time">Transaction Time</span>
+                </td>
+                <td>{{activeTransaction.transactionTime | amCalendar}}</td>
+              </tr>
+              <tr>
+                <td><span data-toggle="tooltip" data-placement="top" title="Trading Interval">Trading Interval</span>
+                </td>
+                <td>{{activeTransaction.tradingTimeFrom | amCalendar}} -
+                  {{activeTransaction.tradingTimeTo | amCalendar}}</td>
+              </tr>
+              <tr>
+                <td>Offer Status</td>
+                <td>{{activeTransaction.stateMessage}}</td>
+              </tr>
+              <tr>
+                <td>ID of the Offer in INEA's FMAR system</td>
+                <td>{{activeTransaction.ineaId}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <flexoffersetview [flexoffers]="activeTransactionOffers">
+            </flexoffersetview>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+<!--col-md-9 ends-->

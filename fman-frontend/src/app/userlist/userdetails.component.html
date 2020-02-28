@@ -1,0 +1,130 @@
+<div class="col-md-9 bg-white">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-offset-3 col-md-6 sn-form">
+                    <h2 class="title text-center" style="margin-bottom: 25px;">User Details</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 25px;">
+            <list-errors [errors]="errors"></list-errors>
+            <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+                <fieldset [disabled]="isSubmitting">
+
+                  <div class="form-group" [ngClass]="{
+                            'has-error': userForm.controls.userName.invalid,
+                            '': userForm.controls.userName.valid
+                          }">
+                        <input
+                        formControlName="userName"
+                        placeholder="User Name"
+                        class="form-control"
+                        type="text"
+                        required/>
+                        <div class="help-block" *ngIf="userForm.controls.userName.invalid">User Id is required</div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{
+                                'has-error': userForm.controls.userName.invalid,
+                                '': userForm.controls.userName.valid
+                              }">
+                    <input
+                      formControlName="userName"
+                      placeholder="User Name"
+                      class="form-control"
+                      type="text"
+                      required/>
+                      <div class="help-block" *ngIf="userForm.controls.userName.invalid">User Name is required</div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{
+                    'has-error': userForm.controls.firstName.invalid,
+                    '': userForm.controls.firstName.valid
+                                }">
+                        <input
+                        formControlName="firstName"
+                        placeholder="First Name *"
+                        class="form-control"
+                        type="text"
+                        required />
+                        <div class="help-block" *ngIf="userForm.controls.firstName.invalid">First Name is required</div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{
+                    'has-error': userForm.controls.lastName.invalid,
+                    '': userForm.controls.lastName.valid
+                                }">
+                        <input
+                        formControlName="lastName"
+                        placeholder="Last Name *"
+                        class="form-control"
+                        type="text"
+                        required />
+                        <div class="help-block" *ngIf="userForm.controls.lastName.invalid">Last Name is required</div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{
+                    'has-error': userForm.controls.email.invalid,
+                    '': userForm.controls.email.valid
+                                }">
+                        <input
+                        formControlName="email"
+                        placeholder="Email *"
+                        class="form-control"
+                        type="email"
+                        required />
+                        <div class="help-block" *ngIf="userForm.controls.email.invalid">Email is required</div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{
+                    'has-error': userForm.controls.password.invalid,
+                    '': userForm.controls.password.valid
+                                }">
+                        <input
+                        formControlName="password"
+                        placeholder="Password *"
+                        class="form-control"
+                        type="password"
+                        required />
+                        <div class="help-block" *ngIf="userForm.controls.password.invalid">Password is required</div>
+                  </div>     
+                  
+                  <div class="form-group" [ngClass]="{
+                    'has-error': userForm.controls.role.invalid,
+                    '': userForm.controls.role.valid
+                                }">
+                        <select formControlName="role" id="role">
+                                <option *ngFor="let r of ['ROLE_ADMIN', 'ROLE_PROSUMER', 'ROLE_BROKER']"
+                                        [value]="r" [selected]="userForm.controls.role == r">
+                                    {{r}}
+                                </option>
+                        </select>
+                        <div class="help-block" *ngIf="userForm.controls.role.invalid">Role is required</div>
+                  </div>   
+                  
+                  <div class="form-group" [ngClass]="{
+                    'has-error': userForm.controls.enabled.invalid,
+                    '': userForm.controls.enabled.valid
+                                }">
+                        <label>
+                                Is Enabled?                            
+                        <input
+                            formControlName="enabled"
+                            type="checkbox"
+                            required />
+                        </label>                        
+                  </div>     
+
+                  <h2>TODO: Add contract fields</h2>
+
+                  <button class="btn btn-block btn-hero-success" type="submit" [disabled]="!userForm.valid || userForm.pristine">
+                        Save
+                  </button>
+
+                  </fieldset>
+            </form>
+        </div>
+    </div>  
+</div>

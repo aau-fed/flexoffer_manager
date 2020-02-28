@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+rect.foTimeFlexibility {
+	fill: #64BE45;
+	stroke: black;
+	opacity: 0.5;
+}
+
+line.foTimeFlexibility {
+	stroke: #64BE45;
+	stroke-width:0.75;
+}
+
+line.foCostFunction {
+	stroke: #FF0000;
+	stroke-width:0.75;
+}
+
+text.foTimeFlexibility {
+	fill: #64BE45;
+}
+
+.foTaxis .tick line {
+ 	stroke: blue;
+    opacity: 1;
+}
+
+.foXaxis .tick line {
+ 	stroke: lightgrey;
+    opacity: 0.7;
+}
+
+.foY0line {
+	stroke: black;
+	stroke-width:1;
+}
+
+.foYaxis .tick line {
+	stroke: lightgrey;
+    opacity: 0.7;
+}
+
+.foAreaFlex {
+	fill: #64BE45;
+	stroke-width:0.75;
+	stroke:rgb(0,0,0);
+}
+
+.foAreaBase {
+	fill: #BEBEBE;
+	stroke-width:0.5;
+	stroke:#101010	
+}
+
+.foSchedule {
+	fill: red;
+}
+
+line.foSchedule {
+	stroke: red;
+	stroke-width: 3;
+}
+
+
+.foDefSchedule {
+	fill: orange;
+} 
+
+line.foDefSchedule {
+	stroke: orange;
+	stroke-width: 2;
+}
+
+.big-model-dialog {
+	width: 900px;
+}

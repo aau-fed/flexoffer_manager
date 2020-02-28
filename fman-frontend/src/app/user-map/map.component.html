@@ -1,0 +1,75 @@
+<div class="col-md-9">
+  <div class="bg-white">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <fieldset class="col-md-12">
+          <legend>Users Locations</legend>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <agm-map #gm [latitude]="mapCenterLat" [longitude]="mapCenterLng" [zoom]="zoom" [zoomControl]="true"
+                [disableDefaultUI]="false" [scrollwheel]="true" (mapClick)="mapClicked($event)">
+
+                <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
+                  <agm-marker *ngFor="let user of users" [latitude]="user.location.latitude" [longitude]="user.location.longitude"
+                    [markerDraggable]="false" (mouseOver)="onMouseOver(infoWindow,gm)">
+
+                    <agm-info-window [disableAutoPan]="false" #infoWindow>
+                      <div class="infowindow-wrap">
+                        <div class="infowindow-body">
+                          <table class="table table-striped table-condensed">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <strong>User</strong>
+                                </td>
+                                <td>
+                                  <a [routerLink]="['/user-profile/', user.userName]"> {{user.userName}} </a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <strong>Location</strong>
+                                </td>
+                                <td>
+                                  ({{ user.location.latitude.toFixed(6) }}, {{ user.location.longitude.toFixed(6) }})
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <a href="javascript:void(0);" (click)="openBill(user.userName)" title="Bill"><i class="icon ion-cash"></i></a>
+                                </td>
+                                <td>
+                                  <a href="javascript:void(0);" (click)="openContract(user.userName)"
+                                    title="Contract"><i class="icon ion-clipboard"></i></a>
+                                </td>
+
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </agm-info-window>
+
+                  </agm-marker>
+                </agm-marker-cluster>
+
+                <!--https://angular-maps.com/api-docs/agm-core/directives/AgmCircle.html-->
+                <!--
+                    <agm-circle [latitude]="mapCenterLat" [longitude]="mapCenterLng" 
+                        [radius]="5000"
+                        [fillColor]="'red'"
+                        [circleDraggable]="true"
+                        [editable]="true">
+                    </agm-circle>
+                    -->
+              </agm-map>
+
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--col-md-9 ends-->

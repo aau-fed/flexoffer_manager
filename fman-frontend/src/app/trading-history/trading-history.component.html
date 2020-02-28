@@ -1,0 +1,107 @@
+<div class="col-md-9">
+  <div class="bg-white">
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <h2>Trading History</h2>
+
+        <div class="panel-body">
+          <!-- <div class="col-xs-4 col-4 col-md-4"></div> -->
+          <div class="col-xs-4 col-2 col-md-4">Please select the time period: </div>
+          <div class="col-xs-8 col-10 col-md-8">
+
+            <input type="text" [(ngModel)]="dateInterval" placeholder="Daterangepicker" class="form-control"
+              bsDaterangepicker (ngModelChange)="timePeriodChanged($event)">
+          </div>
+        </div>
+
+
+        <tabset [justified]="true">
+
+          <tab heading="Market Orders (commitments)" customClass="tab-style">
+
+            <!-- <h3>Market Orders (commitments / scheduled transactions)</h3> -->
+            <div *ngIf="commitments.length == 0; else commitmentsContent">
+              <p>No active trading is in progress</p>
+            </div>
+
+            <ng-template #commitmentsContent>
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Transaction time</th>
+                    <th>FMAR ID</th>
+                    <th>Offer</th>
+                    <th>Requested deltas</th>
+                    <th>Expected gain</th>
+                    <th>Factual imbalance</th>
+                    <th>Factual imbalance fee</th>
+                    <th>Factual gain</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let c of commitments" class="item-in-list el" animate="fadeIn">
+                    <td>{{c.transaction.transactionTime | amDateFormat:'lll'}}</td>
+                    <td>{{c.transaction.ineaId}}</td>
+                    <td><button class="btn" (click)="showOffer(c.transaction)">
+                        <span class="glyphicon glyphicon-asterisk"></span>&nbsp;&nbsp;Show Offer
+                      </button>
+                    </td>
+                    <td>{{getCommitmentAmounts(c)}}</td>
+                    <td>{{c.expectedMarketGain | currency:'EUR'}}</td>
+                    <td [colSpan]=3 *ngIf="!c.canBeValidated">No sufficient data to validate</td>
+                    <td *ngIf="c.canBeValidated">{{c.factualImbalance | number:'1.0-2'}} kWh</td>
+                    <td *ngIf="c.canBeValidated">{{c.factualImbalanceFee | currency:'EUR'}}</td>
+                    <td *ngIf="c.canBeValidated">{{c.totalGain | currency:'EUR'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+
+          </tab>
+
+          <tab heading="All transactions" customClass="tab-style">
+
+            <!-- <h3>Full Trading History</h3> -->
+
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>State</th>
+                  <th>Transaction time</th>
+                  <th>FMAR ID</th>
+                  <th>Offer Status</th>
+                  <th>Offer</th>
+                  <th>Schedule</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let h of data" class="item-in-list el" animate="fadeIn">
+                  <td [ngClass]="{'text-muted' : h.state == 'tInactive'}">{{
+                    h.state == "tActive" ? "Active" :
+                    (h.state == "tCancelled" ? "Cancelled" :
+                    (h.state == "tClosed" ? "Closed" : ""))}}</td>
+                  <td>{{h.transactionTime | amDateFormat:'lll'}}</td>
+                  <td>{{h.ineaId}}</td>
+                  <td>{{h.stateMessage}}</td>
+                  <td><button class="btn" (click)="showOffer(h)">
+                      <span class="glyphicon glyphicon-asterisk"></span>&nbsp;&nbsp;Show Offer
+                    </button>
+                  </td>
+                  <td>{{(h.tradingFlexOffer || {}).flexOfferSchedule  ? "Schedule available" : "No schedule"}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination [itemsPerPage]="pageSize" [totalItems]="datasetSize" [(ngModel)]="currentPage"
+              [boundaryLinks]="true" (pageChanged)="pageChange($event)" [maxSize]="10">
+            </pagination>
+
+          </tab>
+        </tabset>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!--col-md-9 ends-->

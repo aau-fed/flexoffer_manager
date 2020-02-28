@@ -1,0 +1,143 @@
+<div class="col-md-9">
+  <div class="bg-white">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <h2>Key Performance Indicator History</h2>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="col-xs-4 col-2 col-md-4">Select a time period: </div>
+            <div class="col-xs-8 col-10 col-md-8">
+              <input type="text" [(ngModel)]="dateInterval" placeholder="Date Range Picker" class="form-control"
+                bsDaterangepicker (ngModelChange)="filterCriteriaChanged($event)">
+            </div>
+
+            <div class="col-xs-4 col-2 col-md-4">Select a user: </div>
+
+            <div class="col-xs-8 col-10 col-md-8">
+              <select class="form-control" placeholder="Select a user" [(ngModel)]="selectedUser"
+                (ngModelChange)="filterCriteriaChanged($event)">
+                <option *ngFor="let user of users">
+                  {{user.userName}}
+                </option>
+              </select>
+            </div>
+
+
+          </div>
+        </div>
+
+        <img *ngIf="loading"
+          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+
+        <div *ngIf="(kpidata | json) == '{}'; else elseBlock">
+          <p>No KPI data is retrieved</p>
+        </div>
+
+        <ng-template #elseBlock>
+          <table class="table table-striped table-bordered">
+            <tbody>
+              <tr>
+                <td>KPI Reported for the User</td>
+                <td>{{kpidata.summaryOfUserName ? kpidata.summaryOfUserName : "All users"}}</td>
+              </tr>
+              <tr>
+                <td>KPI Reporting Period</td>
+                <td>{{kpidata.periodFrom | amCalendar}} - {{kpidata.periodTo| amCalendar}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p><b>Aggregator Balance</b></p>
+          <table class="table table-striped table-bordered">
+            <tbody>
+              <tr>
+                <td>Total gain of market commitments (FMAR orders)</td>
+                <td>{{(kpidata.aggregatorBenefitKPIs || {}).expectedAggregatorGains | currency:'EUR'}}</td>
+              </tr>
+              <tr>
+                <td>Total cost of user flexibility/contracts</td>
+                <td>{{(kpidata.aggregatorBenefitKPIs || {}).expectedAggregatorCosts | currency:'EUR'}}</td>
+              </tr>
+              <tr>
+
+                <td>Balance</td>
+                <td>
+                  {{(kpidata.aggregatorBenefitKPIs || {}).expectedAggregatorGains - (kpidata.aggregatorBenefitKPIs || {}).expectedAggregatorCosts | currency:'EUR'}}
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+
+          <p><b>Summary of Loads</b></p>
+          <table class="table table-striped table-bordered">
+            <tbody>
+              <tr>
+                <td>Number of Flexibility Offers (FlexOffers)</td>
+                <td>{{kpidata.numberOfFOs}}</td>
+              </tr>
+              <tr>
+                <td>Flexibility Activation Level (% of time periods with BASELINE != SCHEDULED energy)</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).flexibilityActivationLevel * 100.0 | number}} %</td>
+              </tr>
+              <tr>
+                <td>Consumption Flexibility Level (% of time periods with flexible consumption)</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).consumptionFlexibilityLevel * 100.0 | number}} %</td>
+              </tr>
+              <tr>
+                <td>Consumption Avg. Variability</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).consumptionVariability | number}} dkWh/h</td>
+              </tr>
+              <tr>
+                <td>Consumption Avg. Peak Load</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).consumptionPeak | number}} kWh/h</td>
+              </tr>
+              <tr>
+                <td>Consumption Adaptability Level (% of total consumption that is variable)</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).consumptionAdaptabilityLevel * 100.0 | number}} %</td>
+              </tr>
+              <tr>
+                <td>Production Flexibility Level (% of time periods with flexible production)</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).productionFlexibilityLevel * 100.0 | number}} %</td>
+              </tr>
+              <tr>
+                <td>Production Avg. Variability</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).productionVariability | number}} dkWh/h</td>
+              </tr>
+              <tr>
+                <td>Production Avg. Peak Load</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).productionPeak | number}} kWh/h</td>
+              </tr>
+              <tr>
+                <td>Production Adaptability Level (% of total production that is variable)</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).productionAdaptabilityLevel * 100.0 | number}} %</td>
+              </tr>
+              <tr>
+                <td>Average Baseline Energy</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).avgBaselineEnergy | number}} kWh/h</td>
+              </tr>
+              <tr>
+                <td>Average Scheduled Energy</td>
+                <td>{{(kpidata.adaptabilityKPIs || {}).avgScheduledEnergy | number}} kWh/h</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p><b>Summary of Market Orders</b></p>
+          <table class="table table-striped table-bordered">
+            <tbody>
+              <tr>
+                <td>Number of FMAR Orders (Commitments)</td>
+                <td>{{kpidata.numberOfMarketCommitments}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
+
+    </div>
+  </div>
+</div>

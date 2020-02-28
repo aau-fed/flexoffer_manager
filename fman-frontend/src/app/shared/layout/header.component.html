@@ -1,0 +1,32 @@
+    <header *ngIf="loggedIn">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="#/" class="logo">
+                        <img src="assets/img/Logo_goflex_project.png" />
+                        <img src="assets/img/eu_logo.jpg" />
+                    </a>
+                    
+                </div>
+                <div class="col-md-6"></div>
+                <!--
+                <div class="col-md-2">
+                    <div class="header-icons">
+                        <a href="#"><i class="icon ion-ios-search"></i></a>
+                        <a href="#"><i class="icon ion-ios-email-outline"></i></a>
+                        <a href="#"><i class="icon ion-ios-bell-outline"></i></a>
+                    </div>
+                </div>
+                -->
+                <!--
+                <div class="col-md-3">
+                    <div class="user-image">
+                        <img src="assets/img/nick.png" class="img-circle img-thumbnail" alt="user image">
+                        {{userName}}
+                    </div>
+                </div>
+                -->
+                <app-dropdown-menu></app-dropdown-menu>
+            </div>
+        </div> 
+    </header>

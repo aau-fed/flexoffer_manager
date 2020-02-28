@@ -1,0 +1,55 @@
+<div>
+  <h2>Aggregator Portfolio</h2>
+
+  <div *ngIf="activePortfolio == null; else activePortfolioContent">
+    <p>No active trading is in progress</p>
+  </div>
+
+  <ng-template #activePortfolioContent>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Count / Amount</th>
+          <th>Expected Costs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span data-toggle="tooltip" data-placement="top" title="Fixed aggregator expenses">Fixed Losses and
+              Expenses</span></td>
+          <td>-</td>
+          <td>{{(activePortfolio.fixedExpences || 0)  | currency:'EUR' }}</td>
+        </tr>
+        <tr>
+          <td><span data-toggle="tooltip" data-placement="top" title="Active Flex-Offers in the portfolio ">
+              Active FlexOffers
+            </span></td>
+          <td>{{((activePortfolio.foCollection || {}).fos || []).length}}</td>
+          <td>{{(activePortfolio.flexOfferCosts || 0) | currency:'EUR' }}</td>
+        </tr>
+
+        <tr>
+          <td><span data-toggle="tooltip" data-placement="top" title="FMAR orders (commitments)">FMAR Orders
+              (Commitments)</span></td>
+          <td>{{(activePortfolio.marketCommitments || []).length}}</td>
+          <td>{{activePortfolio.marketGains * (-1.0) | currency:'EUR'}}</td>
+        </tr>
+
+        <tr>
+          <td><span data-toggle="tooltip" data-placement="top" title="FMAR imbalances">FMAR Imbalance Fee</span>
+          </td>
+          <td>{{activePortfolio.marketImbalance | number}} kWh</td>
+          <td>{{activePortfolio.marketImbalanceCosts | currency:'EUR'}}</td>
+        </tr>
+
+        <tr>
+          <td>Total Portfolio Cost</td>
+          <td>-</td>
+          <td>{{activePortfolio.totalPortfolioCost | currency:'EUR'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+</div>
