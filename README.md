@@ -1,6 +1,6 @@
 # FlexOffer Manager #
 
-*FlexOffer Manager (FMAN)* - is a software system for aggregators, balance responsible parties (BRPs), micro-grid responsibles (MGRs) for managing (potentially large) collections of flexible electrical loads in the Flex-Offer form. FMAN integrates advanced Flex-Offer aggregation and disaggregation functionalities, optimization, as well as Graphical User Interface (GUI), which allows its users effectively and efficiently analyzing, trading, and shaping available flexibility in near real-time. The initial version of system was developed by researchers at the Daisy group, Aalborg University, Denmark.
+*FlexOffer Manager (FMAN)* - is a software system for aggregators, balance responsible parties (BRPs), micro-grid responsibles (MGRs) for managing (potentially large) collections of flexible electrical loads in the [Flex-Offer form](https://www.goflex-community.eu/). FMAN integrates advanced Flex-Offer aggregation and disaggregation functionalities, optimization, as well as Graphical User Interface (GUI), which allows its users effectively and efficiently analyzing, trading, and shaping available flexibility in near real-time. The initial version of system was developed by researchers at the Daisy group, Aalborg University, Denmark.
 
 ### What is this repository for? ###
 
