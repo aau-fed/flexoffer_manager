@@ -19,7 +19,7 @@ and a user manual.
 
 3. Update FMAN configuration file _/fman-backend/src/main/resources/fman.properties_. Specifically, "spring.datasource.url" datasource URL needs to be updated.
 
-4. Goto to the root folder and run: 
+4. Go to to the root folder and run: 
 	```mvn clean compile package```
 	
 5. Run the FMAN back-end using the command:
@@ -29,7 +29,7 @@ and a user manual.
  
 1. Configure Node.js and the Node Package Manage (npm) tool
 
-2. Goto the _/fman-frontend/_ and install all javascript dependencies using the comand:
+2. Go to the _/fman-frontend/_ and install all javascript dependencies using the comand:
     ```npm install```
 
 3. Run the front-end application using the command:
