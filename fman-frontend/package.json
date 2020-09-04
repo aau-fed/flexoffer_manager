@@ -39,7 +39,7 @@
     "highcharts": "^6.1.1",
     "js-marker-clusterer": "^1.0.0",
     "jwt-decode": "^2.2.0",
-    "marked": "^0.4.0",
+    "marked": "^0.7.0",
     "moment": "^2.22.2",
     "ngx-bootstrap": "3.0.1",
     "ngx-moment": "^3.1.0",
