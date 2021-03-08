@@ -1,0 +1,7 @@
+{
+  "name": "default",
+  "production": true,
+  "api_url": "http://localhost:8085",
+  "kpi_api_url": "http://localhost:8085",
+  "mapApiKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

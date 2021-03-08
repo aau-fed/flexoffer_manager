@@ -42,6 +42,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.concurrent.Executor;
@@ -57,8 +59,8 @@ public class FmanApplication {
 	@Autowired
 	private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	public PasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(FmanApplication.class, args);

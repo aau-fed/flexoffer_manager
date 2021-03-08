@@ -1,7 +1,7 @@
 # Stage 0, "build-stage", to build and compile the frontend
 FROM teracy/angular-cli as build-stage
-MAINTAINER "muhaftab@cs.aau.dk"
-LABEL vendor="GOFLEX"
+MAINTAINER "bn12@cs.aau.dk"
+LABEL vendor="FED"
 
 # Set the working directory to /app
 WORKDIR /app

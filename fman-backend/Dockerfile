@@ -1,7 +1,7 @@
 # Use custom Oracal Java 8 as parent image because official java:8 is missing some classes
-FROM muhaftab/java8
-MAINTAINER "muhaftab@cs.aau.dk"
-LABEL vendor="GOFLEX"
+FROM bn21/java8
+MAINTAINER "bn21@cs.aau.dk"
+LABEL vendor="FED"
 
 # ENV is available inside the container
 ENV profile default

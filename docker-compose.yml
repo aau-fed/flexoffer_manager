@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: mysql-db-container
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+      - $HOME/mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQl_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: unless-stopped
+
+  fman-backend:
+    container_name: fman-backend-container
+    image: bn21/fman-backend:latest
+    network_mode: host
+    environment:
+      profile: container
+      port: 8085
+      FMAN_DB: ${FMAN_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    stdin_open: true
+    tty: true
+    restart: always
+    depends_on:
+      - mysql
+    build:
+      context: ./fman-backend
+      dockerfile: Dockerfile
+
+  fman-frontend:
+    container_name: fman-frontend-container
+    image: bn21/fman-frontend:latest
+    stdin_open: true
+    tty: true
+    restart: always
+    hostname: localhost
+    ports:
+      ["8080:80"]
+    volumes:
+      - ./fman-frontend/docker_environments/default:/usr/share/nginx/html/assets/environments
+
+    networks:
+      - frontend-net
+    build:
+      context: ./fman-frontend
+      dockerfile: Dockerfile
+
+networks:
+  frontend-net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.14.4.1/24
